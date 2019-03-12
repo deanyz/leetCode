@@ -6,8 +6,8 @@
  * https://leetcode.com/problems/palindrome-number/description/
  *
  * algorithms
- * Easy (42.13%)
- * Total Accepted:    522.2K
+ * Easy (42.14%)
+ * Total Accepted:    521.7K
  * Total Submissions: 1.2M
  * Testcase Example:  '121'
  *
@@ -44,10 +44,48 @@
  * Coud you solve it without converting the integer to a string?
  * 
  */
+//#include <iostream>
+
 class Solution {
 public:
     bool isPalindrome(int x) {
+        if (x < 0) 
+            return false;
         
+        int ltimes = 1;
+        int rtimes = 10;
+        int r, l;
+        int tmp = x;
+        while ( 0 != ( tmp = tmp/10)) {
+            ltimes *= 10;
+        }
+        //std::cout << ltimes << std::endl;
+
+        while (ltimes >= rtimes) {
+            r = x % rtimes / (rtimes/10);
+            l = x / ltimes % 10;
+            if (r != l)
+                return false;
+            //std::cout << "x[" << x << "]  " << r << "   " << l << std::endl;
+            //std::cout << "ltimes [" << ltimes << "]  rtimes [" << rtimes << "]" << std::endl;
+            ltimes /= 10;
+            rtimes *=10;
+        }
+        
+
+        return true;
     }
 };
 
+/*
+int main()
+{
+    Solution sl;
+    bool ret;
+
+    ret = sl.isPalindrome(122321);
+    std::cout << ret << std::endl;
+
+    return 0;
+}
+*/

@@ -7,7 +7,7 @@
  *
  * algorithms
  * Easy (25.17%)
- * Total Accepted:    623.4K
+ * Total Accepted:    623.6K
  * Total Submissions: 2.5M
  * Testcase Example:  '123'
  *
@@ -41,44 +41,30 @@
  * integer overflows.
  * 
  */
-#include <iostream>
 
-class Solution {
-public:
-    int reverse(int x) {
+class Solution
+{
+  public:
+    int reverse(int x)
+    {
+        if (x == INT_MIN) {
+            return 0;
+        }
+
         int tmp = x < 0 ? -x : x;
         long long ret = 0;
-        while (0 != (tmp/10)) {
-            ret = 10*ret + tmp%10;
-            //if (ret < 0) {
-            //    return 0;
-            //}
-            tmp = tmp/10;
+        while (0 != (tmp / 10))
+        {
+            ret = 10 * ret + tmp % 10;
+            tmp = tmp / 10;
         }
-        ret = 10*ret + tmp%10;
+        ret = 10 * ret + tmp % 10;
         if (ret > INT_MAX)
         {
             return 0;
         }
-        ret = x < 0 ? -ret:ret;
+        ret = x < 0 ? -ret : ret;
         return (int)ret;
     }
 };
-
-
-int main() {
-    Solution sl;
-    int a = 992;
-    std::cout << sl.reverse(a) << std::endl;
-
-    int b = -2147483648;
-    std::cout << sl.reverse(b) << std::endl;
-
-    int c = INT_MIN;
-    std::cout << INT_MAX << std::endl;
-    std::cout << INT_MIN << std::endl;
-    std::cout << sl.reverse(c) << std::endl;
-    return 0;
-}
-
 
