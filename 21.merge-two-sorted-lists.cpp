@@ -42,6 +42,7 @@ struct ListNode
 class Solution
 {
   public:
+    /* 迭代方法
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         ListNode * newList = NULL;        
         ListNode * tmp = NULL;
@@ -75,27 +76,46 @@ class Solution
 
         return newList;
     }
+  */
+    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2)
+    {
+        if (l1 == NULL) return l2;
+        if (l2 == NULL) return l1;
+
+        if (l1->val < l2->val) {
+            l1->next = mergeTwoLists(l1->next, l2);
+            return l1;
+        } else {
+            l2->next = mergeTwoLists(l1, l2->next);
+            return l2;
+        }
+    }
 };
 
-void printList(ListNode * list) 
+void printList(ListNode *list)
 {
-    while (list != NULL) {
-        std::cout << list->val << "->" ;
+    while (list != NULL)
+    {
+        std::cout << list->val << "->";
         list = list->next;
     }
 }
 
-ListNode * genListByArray(int * arry, size_t size) 
+ListNode *genListByArray(int *arry, size_t size)
 {
-    ListNode * head = NULL;
-    ListNode * cur = NULL;
+    ListNode *head = NULL;
+    ListNode *cur = NULL;
 
-    for (int i = 0; i < size; i++){
+    for (int i = 0; i < size; i++)
+    {
         ListNode *tmp = new ListNode(arry[i]);
-        if (head == NULL) {
+        if (head == NULL)
+        {
             cur = tmp;
             head = cur;
-        } else {
+        }
+        else
+        {
             cur->next = tmp;
             cur = cur->next;
         }
@@ -104,26 +124,27 @@ ListNode * genListByArray(int * arry, size_t size)
     return head;
 }
 
-void delList(ListNode * list)
+void delList(ListNode *list)
 {
-    ListNode * tmp;
-    while (list != NULL) {
-       tmp = list;
-       list = list->next;
-       tmp->next = NULL; 
-       delete tmp;
+    ListNode *tmp;
+    while (list != NULL)
+    {
+        tmp = list;
+        list = list->next;
+        tmp->next = NULL;
+        delete tmp;
     }
 }
 
-int main() 
+int main()
 {
     Solution sl;
     int a[] = {1, 2, 3, 4, 5, 6};
     int b[] = {1, 2, 3, 4, 5, 6};
-    ListNode * aList = genListByArray(a, sizeof(a)/sizeof(int));
-    ListNode * bList = genListByArray(b, sizeof(b)/sizeof(int));
+    ListNode *aList = genListByArray(a, sizeof(a) / sizeof(int));
+    ListNode *bList = genListByArray(b, sizeof(b) / sizeof(int));
     //printList(aList);
-    ListNode * cList = sl.mergeTwoLists(aList, bList);
+    ListNode *cList = sl.mergeTwoLists(aList, bList);
     printList(cList);
 
     //delList(aList);
@@ -131,4 +152,3 @@ int main()
     delList(cList);
     return 0;
 }
-
