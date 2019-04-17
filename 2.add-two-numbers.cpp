@@ -45,11 +45,11 @@ public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode head(0);
         ListNode *cur = &head;
-        ListNode *last = NULL;
+        ListNode * tmp = NULL;
         bool bCarry = false;
      
         while (l1 != NULL && l2 != NULL) {
-          ListNode *tmp = new ListNode(l1->val + l2->val + (bCarry ? 1 : 0));
+          tmp = new ListNode(l1->val + l2->val + (bCarry ? 1 : 0));
           if (tmp->val >= 10) {
             bCarry = true;
             tmp->val -= 10;
@@ -60,63 +60,61 @@ public:
           l2 = l2->next;
           cur->next = tmp;
           cur = tmp;
-          last = cur;
         }
 
-        if (l1 != NULL) {
-            cur->next = l1;
-            cur = l1;
-            while (cur != NULL) {
-              cur->val += bCarry ? 1:0;
-              if (cur->val >= 10) {
-                bCarry = true;
-                cur->val -= 10;
-                last = cur;
-                cur = cur->next;
-              } else {
-                bCarry = false;
-                break;
-              }
+        while (l1 != NULL) {
+            tmp = new ListNode(l1->val + (bCarry ? 1:0));
+            if (tmp->val >= 10) {
+              bCarry = true;
+              tmp->val -= 10;
+            } else {
+              bCarry = false;
             }
-        } else if (l2 != NULL) {
-            cur->next = l2;
-            cur = l2;
-            while (cur != NULL) {
-              cur->val += bCarry ? 1:0;
-              if (cur->val >= 10) {
-                bCarry = true;
-                cur->val -= 10;
-                last = cur;
-                cur = cur->next;
-              } else {
-                bCarry = false;
-                break;
-              }
+
+            l1 = l1->next;
+            cur->next = tmp;
+            cur = tmp;
+        }
+
+        while (l2 != NULL) {
+            tmp = new ListNode(l2->val + (bCarry ? 1:0));
+            if (tmp->val >= 10) {
+              bCarry = true;
+              tmp->val -= 10;
+            } else {
+              bCarry = false;
             }
+
+            l2 = l2->next;
+            cur->next = tmp;
+            cur = tmp;
         }
 
         if (bCarry) {
-          last->next = new ListNode(1);
+          cur->next = new ListNode(1);
         }
 
         return head.next; 
     }
 };
-
-/* int main()
+/* 
+int main()
 {
     Solution sl;
-    int array1[3] = {4, 5, 6};
-    int array2[5] = {7, 8, 9, 9, 9};
-    ListNode * list1 = createListByArray(array1, 3);
+    int array1[] = {4, 5, 6};
+    int array2[] = {7, 8, 9, 9, 9};
+    ListNode * list1 = createListByArray(array1, sizeof(array1)/sizeof(int));
     printList(list1);
   
-    ListNode * list2 = createListByArray(array2, 5);
+    ListNode * list2 = createListByArray(array2, sizeof(array2)/sizeof(int));
     printList(list2);
 
     ListNode * list3 = sl.addTwoNumbers(list1, list2);
     printList(list3);
 
+    deleteList(list1);
+    deleteList(list2);
+    deleteList(list3);
     return 0;
 } */
 

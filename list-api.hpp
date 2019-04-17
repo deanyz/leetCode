@@ -15,10 +15,26 @@ struct ListNode {
 
 // insert
 
+// delete
+void deleteList(ListNode * &head)
+{
+    if (head == nullptr)
+        return ;
+    
+    ListNode *next = nullptr;
+    while (head != nullptr) {
+        next = head->next;
+        head->next = nullptr;
+        delete head;
+        head = next;
+    }
+}
+
 //empty
 bool empty(ListNode * head) {
     return (head==nullptr ? true:false);
 }
+
 // print list
 void printList(ListNode * head)
 {
