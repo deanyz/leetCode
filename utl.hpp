@@ -2,10 +2,12 @@
 
 #include <iostream>
 #include <vector>
-void printVector(std::vector<int> & nums) 
+
+template <typename type>
+void printVector(std::vector<type> & nums) 
 {
     for (auto & i : nums) {
-        std::cout<<i << "  ";
+        std::cout << i << "  ";
     }
     std::cout << std::endl;
 }

@@ -46,20 +46,28 @@
  * 
  * 
  */
- /* #include <iostream>
+/*  #include <iostream>
  using namespace std; */
 
 class Solution {
 public:
-    int chInStr(const string &str, const char &ch) {
+   /*  int chInStr(const string &str, const char &ch) {
         for (size_t i = 0; i < str.length(); i++) {
             if (ch == str[i]) {
                 return i;
             }
         }
         return -1;
-    }
+    } */
 
+    int chInStr(const string &str, size_t beginPos, size_t length, const char &ch) {
+      for (size_t i = beginPos; i < beginPos + length; i++) {
+        if (ch == str[i]) {
+          return i;
+        }
+      }
+      return -1;
+    }
     /* int lengthOfLongestSubstring(string s) {
         string curStr {""};
         string optStr {""};
@@ -86,33 +94,29 @@ public:
     } */
 
     int lengthOfLongestSubstring(string s) {
-        string curStr {""};
-        // string optStr {""};
-        //string prevStr {""};
+        int curBeginPos = 0;
+        // int optBeginPos = 0;
         size_t curLength = 0;
         size_t optLength = 0;
         bool bOptIsCur = true;
         int ret = 0;
         for (auto & ch : s) {
-            ret = chInStr(curStr, ch);
+            ret = chInStr(s, curBeginPos, curLength,  ch);
             if (ret == -1) {
-                curStr.push_back(ch);
                 curLength += 1;
                 if (bOptIsCur) 
-                    // optStr.push_back(ch);
                     optLength += 1;
-                else if ( optLength < curLength ) 
+                else if ( optLength <= curLength ) {
                     optLength = curLength;
+                    // optBeginPos = curBeginPos;
+                }
             } else {
-                //prevStr = curStr;
-                //curLength = curLength - ret;
-                curStr = curStr.substr(ret + 1);
-                curStr.push_back(ch);
-                curLength = curStr.length();
+                curLength = curBeginPos + curLength - ret; //(curBeginPos + curLength - 1) - ret + 1 原字符串结尾位置-重复字符位置+重复字符长度
+                curBeginPos = ret + 1;
                 bOptIsCur = false;
             }
         }
-        //cout << "optStr: " << optStr << endl;
+        // cout << "optStr: " << s.substr(optBeginPos, optLength) << endl;
         return optLength;
     }
 };
@@ -122,5 +126,7 @@ public:
     std::string s{"pwwkew"};
     Solution sl;
     std::cout << sl.lengthOfLongestSubstring(s);
+    int i;
+    std::cin >> i;
     return 0;
 } */
