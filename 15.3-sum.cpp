@@ -33,8 +33,8 @@
  * 
  */
 
-/* #include "utl.hpp"
-using namespace std */;
+#include "utl.hpp"
+using namespace std;
 
 class Solution {
 public:
@@ -82,7 +82,7 @@ public:
         return isIn;
     }
 
-    /*  //?????????? 
+    /*  //时间复杂度不满足
   vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> result;
         vector<int> tmp;
@@ -195,10 +195,11 @@ public:
     }
 };
 
-/* int main()
+int main()
 {
     Solution sl;
-    vector<int> array{-1, 0, 1, 2, -1, 1, -4};
+    //vector<int> array{-1, 0, 1, 2, -1, 1, -4};
+    vector<int> array{1};
     printVector(array);
     //std::cout << array << std::endl;
     auto result = sl.threeSum(array);
@@ -207,4 +208,4 @@ public:
     }
 
     return 0;
-} */
+}
