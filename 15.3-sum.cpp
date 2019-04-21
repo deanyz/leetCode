@@ -38,40 +38,6 @@ using namespace std;
 
 class Solution {
 public:
-    vector<int> genSortedVector(int x, int y, int z)
-    {
-        vector<int> result;
-        if (x <= y && x <= z) {
-            result.push_back(x);
-            if (y <= z) {
-                result.push_back(y);
-                result.push_back(z);
-            } else {
-                result.push_back(z);
-                result.push_back(y);
-            }
-        } else if (y <= x && y <= z) {
-            result.push_back(y);
-            if (x <= z) {
-                result.push_back(x);
-                result.push_back(z);
-            } else {
-                result.push_back(z);
-                result.push_back(x);
-            }
-        } else {
-            result.push_back(z);
-            if (x <= y) {
-                result.push_back(x);
-                result.push_back(y);
-            } else {
-                result.push_back(y);
-                result.push_back(x);
-            }
-        }
-        return result;
-    }
-
     bool inVector(vector<vector<int>> &src, vector<int> target)
     {
         bool isIn = false;
@@ -101,27 +67,6 @@ public:
         return result;
     } */
 
-    vector<int> sortedInsert(vector<int> & nums, int num, bool ascend = true, bool ignoreRepeat = false)
-    {
-        auto it = nums.begin();
-        for (; it != nums.end(); it++)
-        {
-            if (ignoreRepeat && num == *it)
-                break;
-
-            if (ascend ? (num < *it):(num > *it))
-            {
-                nums.insert(it, num);
-                break;
-            }
-        }
-
-        if (it == nums.end())
-            nums.push_back(num);
-
-        return nums;
-    }
-
     vector<vector<int> > threeSum(vector<int> &nums)
     {
         //quickSort(nums);
@@ -132,8 +77,7 @@ public:
         if (nums.size()  < 3)
             return  result;
 
-        //for ( int x = 0; x < int(nums.size() - 2); x++ )
-        for ( int x = 0; nums[x] <= 0 && x < int(nums.size() - 2); x++ )
+        for ( int x = 0; x < int(nums.size() - 2); x++ )
         {
             int y = x + 1;
             int z = nums.size() - 1;
@@ -175,7 +119,7 @@ int main()
 
     auto result = sl.threeSum(array);
     for (auto & i : result) {
-        printVector(i);
+        utl::printVector(i);
     }
 
     return 0;
