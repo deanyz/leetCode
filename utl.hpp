@@ -16,6 +16,10 @@ void printVector(std::vector<type> & nums)
 template <typename type>
 void swap(type &num1, type &num2)
 {
+    //std::cout << "num1: " << &num1 << std::endl;
+    //std::cout << "num2: " << &num2 << std::endl;
+    if (&num1 == & num2)
+        return ;
     num1 = num1 + num2;
     num2 = num1 - num2;
     num1 = num1 - num2;
@@ -55,11 +59,29 @@ int partition(std::vector<type> & nums, int lo, int hi)
 }
 
 template <typename type>
+int partitionNew(std::vector<type> & nums, int lo, int hi)
+{
+    if ( lo >= hi)
+        return lo;
+    type selVal = nums[hi];
+    int pre = lo - 1;
+    for (int i = lo; i < hi; i++) {
+        if (nums[i] <= selVal){
+            pre++;
+            swap(nums[pre], nums[i]);
+        }
+    }
+    swap(nums[pre+1], nums[hi]);
+
+    return pre+1;
+}
+
+template <typename type>
 void quickSort(std::vector<type> & nums, int lo, int hi)
 {
    if (lo >= hi) return ;
 
-   int pos = partition(nums, lo, hi);
+   int pos = partitionNew(nums, lo, hi);
 
 //    std::cout << "after partition: "; printVector(nums);
    quickSort(nums, lo, pos - 1);
