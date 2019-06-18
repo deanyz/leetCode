@@ -26,8 +26,8 @@
  *
  * A solution set is:
  * [
- * â  [-1, 0, 1],
- * â  [-1, -1, 2]
+ * [-1, 0, 1],
+ * [-1, -1, 2]
  * ]
  *
  *
@@ -100,6 +100,10 @@ public:
                 }
             }
 
+            // nums has been sorted, so when nums[x] == 0, 
+            // nums[y] and nums[z] must equal or bigger then 0.
+            // the sum of nums[x], nums[y], nums[z] bigger then 0, 
+            // except nums[x] == nums[y] == nums[z] == 0
             if (nums[x] == 0)
                 break;
         }
