@@ -45,34 +45,25 @@ public:
 
     string addBinary(string a, string b) {
         string result("");
-        string * p1 = nullptr;
-        string * p2 = nullptr;
 
         #ifdef __MAIN__
         std::cout << a << std::endl;
         std::cout << b << std::endl;
         #endif // __MAIN__
 
-        if (b.length() > a.length()) {
-            p1 = &b;
-            p2 = &a;
-        } else {
-            p1 = &a;
-            p2 = &b;
+        if (a.length() > b.length()) {
+            b.insert(0, a.length() - b.length(), '0');
+        } else if (a.length() < b.length()) {
+            a.insert(0, b.length() - a.length(), '0');
         }
 
-        auto it1 = p1->crbegin();
-        auto it2 = p2->crbegin();
+        auto it1 = a.crbegin();
+        auto it2 = b.crbegin();
         char last = '0';
-        while (it1 != p1->crend() && it2 != p2->crend()) {
+        while (it1 != a.crend() && it2 != b.crend()) {
             last = mergebit(result, *it1, *it2, last);
             it1++;
             it2++;
-        }
-
-        while (it1 != p1->crend()) {
-            last = mergebit(result, *it1, '0', last);
-            it1++;
         }
 
         if (last == '1')
