@@ -19,24 +19,17 @@ using namespace std;
 
 class Solution {
 public:
-    int maxArea(vector<int>& height) {
+    int maxArea(vector<int> &height)
+    {
         int b = 0, e = height.size() - 1;
-        int max_area = min(height[b], height[e]) * (e - b) ;
-        cout << max_area << endl;
+        int max_area = min(height[b], height[e]) * (e - b);
         int cur_area = 0;
         int i = 0, j = height.size() - 1;
-        for (; j > i; )  {
-            if (height[i] < height[j]) {
+        for (; j > i;)
+        {
+            if (height[i] < height[j])
+            {
                 i++;
-#ifdef TEST
-                cout << "i";
-                for (auto index = 0; index < i; index++)
-                {
-                    cout << "+";
-                }
-                cout << endl;
-#endif // TEST
-
                 if (height[i] > height[b])
                 {
                     b = i;
@@ -46,16 +39,10 @@ public:
                         max_area = cur_area;
                     }
                 }
-            } else {
+            }
+            else
+            {
                 j--;
-#ifdef TEST
-                cout << "j";
-                for (auto index = 0; index < j; index++)
-                {
-                    cout << "-";
-                }
-                cout << endl;
-#endif // TEST
                 if (height[j] > height[e])
                 {
                     e = j;
@@ -68,11 +55,6 @@ public:
             }
         }
 
-#ifdef TEST
-        cout << "i: " << i << ", j: " << j << endl;
-        cout << "b: " << b << ", e: " << e << endl;
-        cout << "height[b]: " << height[b] << ", height[e]: " << height[e] << endl;
-#endif // TEST
         return max_area;
     }
 };
